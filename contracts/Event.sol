@@ -11,4 +11,8 @@ contract Event {
 
   function purchaseTicket() payable {
   }
+
+  function getArray() public returns (int16[10]) {
+    return testArray;
+  }
 }
