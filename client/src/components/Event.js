@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import EventContract from '../contracts/Event.json'
-import getWeb3 from '../utils/getWeb3'
 
 class Event extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      web3: null,
       tickets: []
     }
 
@@ -17,11 +15,7 @@ class Event extends Component {
   }
 
   componentWillMount() {
-    getWeb3
-    .then(results => {
-      this.setState({ web3: results.web3 })
-      this.instantiateContract()
-    })
+    this.instantiateContract()
   }
 
   instantiateContract() {
@@ -29,7 +23,7 @@ class Event extends Component {
     const eventContract = contract(EventContract)
     const contractAddress = this.props.match.params.contractAddress
 
-    eventContract.setProvider(this.state.web3.currentProvider)
+    eventContract.setProvider(this.props.web3.currentProvider)
 
     eventContract.at(contractAddress).then((instance) => {
       instance.getTickets.call().then((data) => {
@@ -68,10 +62,10 @@ class Event extends Component {
   purchaseTicket(ticketID) {
     const contract = require('truffle-contract')
     const eventContract = contract(EventContract)
-    eventContract.setProvider(this.state.web3.currentProvider)
+    eventContract.setProvider(this.props.web3.currentProvider)
 
     eventContract.deployed().then((instance) => {
-      instance.purchaseTicket(1, "Very secret", {from: this.state.web3.eth.accounts[0], gas: 42000}).then((data) => {
+      instance.purchaseTicket(1, "Very secret", {from: this.props.web3.eth.accounts[0], gas: 42000}).then((data) => {
         alert("You got it!")
       })
     })

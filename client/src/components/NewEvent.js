@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import getWeb3 from '../utils/getWeb3'
 import createEvent from '../actions/createEvent'
 
 class NewEvent extends Component {
@@ -16,7 +15,6 @@ class NewEvent extends Component {
     }
 
     this.state = {
-      web3: null,
       numTickets: numTickets,
       identifiers: identifiers,
       prices: prices
@@ -25,21 +23,11 @@ class NewEvent extends Component {
     this.submit = this.submit.bind(this)
   }
 
-  componentWillMount() {
-    getWeb3
-    .then(results => {
-      this.setState({ web3: results.web3 })
-    })
-    .catch(() => {
-      console.log('Error finding web3.')
-    })
-  }
-
   submit() {
     let history = this.props.history
 
     createEvent(
-      this.state.web3,
+      this.props.web3,
       this.state.numTickets,
       this.state.identifiers,
       this.state.prices,
