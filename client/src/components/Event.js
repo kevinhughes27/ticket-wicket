@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import EventContract from './contracts/Event.json'
-import getWeb3 from './utils/getWeb3'
+import EventContract from '../contracts/Event.json'
+import getWeb3 from '../utils/getWeb3'
 
 class Event extends Component {
   constructor(props) {
