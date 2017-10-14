@@ -8,7 +8,8 @@
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
-    "truffle-contract": "^3.0.0"
+    "truffle-contract": "^3.0.0",
+    "js-sha3": "0.6.1"
   },
   "scripts": {
     "start": "react-scripts start",

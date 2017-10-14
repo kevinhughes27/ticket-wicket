@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import EventContract from '../contracts/Event.json'
+import { sha3_256 } from 'js-sha3'
 
 class Event extends Component {
   constructor(props) {
@@ -73,7 +74,7 @@ class Event extends Component {
     eventContract.at(contractAddress).then((instance) => {
       let secret = document.getElementById("secret").value;
 
-      instance.purchaseTicket(ticketID, document.getElementById("secret").value, {from: this.props.web3.eth.accounts[0], to: contractAddress, value: ticketPrice, gas: 500000}).then((data) => {
+      instance.purchaseTicket(ticketID, sha3_256(secret), {from: this.props.web3.eth.accounts[0], to: contractAddress, value: ticketPrice, gas: 500000}).then((data) => {
         let newTickets = this.state.tickets;
         newTickets[ticketID].isSold = true;
 
