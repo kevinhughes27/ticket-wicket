@@ -11,6 +11,9 @@ class Event extends Component {
       web3: null,
       tickets: []
     }
+
+    this.renderTicket = this.renderTicket.bind(this)
+    this.purchaseTicket = this.purchaseTicket.bind(this)
   }
 
   componentWillMount() {
@@ -18,9 +21,6 @@ class Event extends Component {
     .then(results => {
       this.setState({ web3: results.web3 })
       this.instantiateContract()
-    })
-    .catch(() => {
-      console.log('Error finding web3.')
     })
   }
 
@@ -31,7 +31,8 @@ class Event extends Component {
 
     eventContract.setProvider(this.state.web3.currentProvider)
 
-    eventContract.at(contractAddress).then((instance) => {
+    eventContract.deployed().then((instance) => {
+    // eventContract.at(contractAddress).then((instance) => {
       instance.getTickets.call().then((data) => {
         let tickets = []
         let numTickets = data[0].length
@@ -60,8 +61,21 @@ class Event extends Component {
     return (
       <li key={ticket.identifier}>
         {ticket.identifier} {ticket.price}
+        (Owner: {ticket.owner}) <button onClick={this.purchaseTicket.bind(ticket.identifier)}>Purchase ticket</button>
       </li>
     )
+  }
+
+  purchaseTicket(ticketID) {
+    const contract = require('truffle-contract')
+    const eventContract = contract(EventContract)
+    eventContract.setProvider(this.state.web3.currentProvider)
+
+    eventContract.deployed().then((instance) => {
+      instance.purchaseTicket(1, "Very secret", {from: this.state.web3.eth.accounts[0], gas: 42000}).then((data) => {
+        alert("You got it!")
+      })
+    })
   }
 }
 
