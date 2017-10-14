@@ -29,16 +29,18 @@ contract Event {
     }
   }
 
-  function getTickets() public returns (uint[], uint[]) {
+  function getTickets() public returns (uint[], uint[], bool[]) {
     uint[] memory identifiers = new uint[](numTickets);
     uint[] memory prices = new uint[](numTickets);
+    bool[] memory isSold = new bool[](numTickets);
 
     for (uint i = 0; i < numTickets; i++) {
       identifiers[i] = tickets[i].identifier;
       prices[i] = tickets[i].price;
+      isSold[i] = !(sha3(tickets[i].ownerHash) == sha3(""));
     }
 
-    return (identifiers, prices);
+    return (identifiers, prices, isSold);
   }
 
   function getTicket(uint ticketID) public returns (uint, uint) {

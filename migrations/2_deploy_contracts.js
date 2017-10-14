@@ -6,7 +6,7 @@ module.exports = function(deployer) {
   var prices = [];
 
   for (let i = 0; i < numTickets; i++) {
-    identifiers.push(i+1);
+    identifiers.push(i);
     prices.push(100);
   }
 

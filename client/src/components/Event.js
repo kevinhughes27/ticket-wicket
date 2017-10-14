@@ -32,7 +32,8 @@ class Event extends Component {
         for (let i = 0; i < numTickets; i++) {
           tickets.push({
             identifier: data[0][i].toNumber(),
-            price: data[1][i].toNumber()
+            price: data[1][i].toNumber(),
+            isSold: data[2][i],
           })
         }
         return this.setState({tickets: tickets})
@@ -54,7 +55,7 @@ class Event extends Component {
     return (
       <li key={ticket.identifier}>
         {ticket.identifier} {ticket.price}
-        (Owner: {ticket.owner}) <button onClick={this.purchaseTicket.bind(ticket.identifier)}>Purchase ticket</button>
+        (Owner: {ticket.isSold ? "Sold" : "Available"}) <button onClick={this.purchaseTicket.bind(this, ticket.identifier)}>Purchase ticket</button>
       </li>
     )
   }
@@ -66,8 +67,11 @@ class Event extends Component {
     eventContract.setProvider(this.props.web3.currentProvider)
 
     eventContract.at(contractAddress).then((instance) => {
-      instance.purchaseTicket(1, "Very secret", {from: this.props.web3.eth.accounts[0], to: contractAddress, value: 45000, gas: 500000}).then((data) => {
-        alert("You got it!")
+      instance.purchaseTicket(ticketID, "Very secret", {from: this.props.web3.eth.accounts[0], to: contractAddress, value: 45000, gas: 500000}).then((data) => {
+        let newTickets = this.state.tickets;
+        newTickets[ticketID].isSold = true;
+
+        this.setState({tickets: newTickets});
       })
     })
   }
