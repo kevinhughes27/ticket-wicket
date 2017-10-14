@@ -1,9 +1,14 @@
 pragma solidity ^0.4.4;
 
 contract Event {
-  int16[10] public testArray;
+  address owner;
+  int16[10] public availableTickets;
 
-  function Event(int16[10] _initArray) {
-    testArray = _initArray;
+  function Event(int16[10] _availableTickets) {
+    owner = msg.sender;
+    availableTickets = _availableTickets;
+  }
+
+  function purchaseTicket() payable {
   }
 }
