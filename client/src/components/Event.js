@@ -31,8 +31,7 @@ class Event extends Component {
 
     eventContract.setProvider(this.state.web3.currentProvider)
 
-    eventContract.deployed().then((instance) => {
-    // eventContract.at(contractAddress).then((instance) => {
+    eventContract.at(contractAddress).then((instance) => {
       instance.getTickets.call().then((data) => {
         let tickets = []
         let numTickets = data[0].length
