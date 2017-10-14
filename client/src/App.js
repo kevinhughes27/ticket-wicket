@@ -29,16 +29,16 @@ class App extends Component {
     eventContract.setProvider(this.state.web3.currentProvider)
 
     eventContract.deployed().then((instance) => {
-      for (let i = 0; i < 10; i++) {
-        instance.getTicket.call(i).then((ticket) => {
-          let tickets = this.state.tickets
+      instance.getTickets.call().then((data) => {
+        let tickets = []
+        for (let i = 0; i < 10; i++) {
           tickets.push({
-            identifier: ticket[0].toNumber(),
-            price: ticket[1].toNumber()
+            identifier: data[0][i].toNumber(),
+            price: data[1][i].toNumber()
           })
-          return this.setState({tickets: tickets})
-        })
-      }
+        }
+        return this.setState({tickets: tickets})
+      })
     })
   }
 
