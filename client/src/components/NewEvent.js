@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Toolbar, Grid, Cell, TextField, Button } from 'react-md'
+import Arena from './Arena'
 import createEvent from '../actions/createEvent'
 
 class NewEvent extends Component {
@@ -7,6 +9,7 @@ class NewEvent extends Component {
 
     this.state = {
       numTickets: 10,
+      numRows: 2,
       ticketPrice: 100
     }
 
@@ -40,25 +43,42 @@ class NewEvent extends Component {
   render () {
     return (
       <div>
-        <h1>New Event</h1>
+        <Toolbar colored title="Eth Tickets / New Event"/>
+        <Grid>
+          <Cell size={4} offset={1}>
+            <TextField
+              id="numTickets"
+              label="Number of Tickets"
+              type="number"
+              customSize="title"
+              value={this.state.numTickets}
+              onChange={(value) => this.setState({numTickets: value})}
+            />
 
-        <br/>
+            <TextField
+              id="numRows"
+              label="Number of Rows"
+              type="number"
+              customSize="title"
+              value={this.state.numRows}
+              onChange={(value) => this.setState({numRows: value})}
+            />
 
-        <label>
-          Number of Tickets
-          <input value={this.state.numTickets} onChange={(ev) => this.setState({numTickets: ev.target.value})}/>
-        </label>
-
-        <br/>
-
-        <label>
-          Ticket Price
-          <input value={this.state.ticketPrice} onChange={(ev) => this.setState({ticketPrice: ev.target.value})}/>
-        </label>
-
-        <br/>
-
-        <button onClick={this.submit}>Create</button>
+            <TextField
+              id="price"
+              label="Ticket Price"
+              type="number"
+              customSize="title"
+              value={this.state.ticketPrice}
+              onChange={(value) => this.setState({ticketPrice: value})}
+            />
+            <br/>
+            <Button raised secondary onClick={this.submit}>Create</Button>
+          </Cell>
+          <Cell size={5} offset={1}>
+            <Arena numTickets={this.state.numTickets} numRows={this.state.numRows}/>
+          </Cell>
+        </Grid>
       </div>
     )
   }
