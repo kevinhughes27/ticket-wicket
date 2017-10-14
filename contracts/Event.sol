@@ -7,7 +7,7 @@ contract Event {
     address owner;
     string ownerHash;
     uint identifier;
-    uint price;
+    uint256 price;
   }
 
   uint public numTickets;
@@ -47,7 +47,7 @@ contract Event {
 
   function purchaseTicket(uint ticketID, string hash) payable {
     require(msg.value >= tickets[ticketID].price);
-    require(sha3(tickets[ticketID].ownerHash) != sha3("")); // seriously?
+    require(sha3(tickets[ticketID].ownerHash) == sha3("")); // seriously?
 
     tickets[ticketID].owner = msg.sender;
     tickets[ticketID].ownerHash = hash;
