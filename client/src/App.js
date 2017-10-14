@@ -31,7 +31,8 @@ class App extends Component {
     eventContract.deployed().then((instance) => {
       instance.getTickets.call().then((data) => {
         let tickets = []
-        for (let i = 0; i < 10; i++) {
+        let numTickets = data[0].length
+        for (let i = 0; i < numTickets; i++) {
           tickets.push({
             identifier: data[0][i].toNumber(),
             price: data[1][i].toNumber()

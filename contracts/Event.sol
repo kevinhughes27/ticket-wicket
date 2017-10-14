@@ -9,15 +9,19 @@ contract Event {
     uint price;
   }
 
-  Ticket[10] public tickets;
+  uint public numTickets;
+  Ticket[] tickets;
 
-  function Event(uint[10] _identifiers, uint[10] _prices) {
+  function Event(uint _numTickets, uint[] _identifiers, uint[] _prices) {
     owner = msg.sender;
-    createTickets(_identifiers, _prices);
+    createTickets(_numTickets, _identifiers, _prices);
   }
 
-  function createTickets(uint[10] _identifiers, uint[10] _prices) {
-    for (uint i = 0; i < 10; i++) {
+  function createTickets(uint _numTickets, uint[] _identifiers, uint[] _prices) {
+    numTickets = _numTickets;
+    tickets.length = numTickets;
+
+    for (uint i = 0; i < numTickets; i++) {
       uint identifier = _identifiers[i];
       uint price = _prices[i];
       tickets[i] = Ticket(address(0), identifier, price);
@@ -25,10 +29,10 @@ contract Event {
   }
 
   function getTickets() public returns (uint[], uint[]) {
-    uint[] memory identifiers = new uint[](10);
-    uint[] memory prices = new uint[](10);
+    uint[] memory identifiers = new uint[](numTickets);
+    uint[] memory prices = new uint[](numTickets);
 
-    for (uint i = 0; i < 10; i++) {
+    for (uint i = 0; i < numTickets; i++) {
       identifiers[i] = tickets[i].identifier;
       prices[i] = tickets[i].price;
     }
