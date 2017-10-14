@@ -52,8 +52,8 @@ class Event extends Component {
   }
 
   purchaseTicket() {
-    const ticket = this.state.tickets.find((t) => t.identifier == this.state.seat)
-    const ticketID = this.state.tickets.findIndex((t) => t.identifier == this.state.seat)
+    const ticket = this.state.tickets.find((t) => t.identifier === this.state.seat)
+    const ticketID = this.state.tickets.findIndex((t) => t.identifier === this.state.seat)
     const ticketPrice = ticket.price
 
     const contract = require('truffle-contract')

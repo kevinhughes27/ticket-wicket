@@ -27,7 +27,7 @@ class Arena extends Component {
           if (tickets.length > 0) {
             const identifier = tickets[seatIndex].identifier
             const isSold = tickets[seatIndex].isSold
-            const isSelected = identifier == selectedSeat
+            const isSelected = identifier === selectedSeat
 
             if (isSold) {
               seats.push(<td key={j}><SeatIcon style={{color: 'red'}}/></td>)
