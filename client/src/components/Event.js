@@ -44,6 +44,10 @@ class Event extends Component {
   render() {
     return (
       <div>
+        <div>
+          Enter a secret key to protect your purchase:
+          <input type="text" id="secret" />
+        </div>
         <ul>
           {this.state.tickets.map(this.renderTicket)}
         </ul>
@@ -67,11 +71,14 @@ class Event extends Component {
     eventContract.setProvider(this.props.web3.currentProvider)
 
     eventContract.at(contractAddress).then((instance) => {
-      instance.purchaseTicket(ticketID, "Very secret", {from: this.props.web3.eth.accounts[0], to: contractAddress, value: 45000, gas: 500000}).then((data) => {
+      let secret = document.getElementById("secret").value;
+
+      instance.purchaseTicket(ticketID, document.getElementById("secret").value, {from: this.props.web3.eth.accounts[0], to: contractAddress, value: 45000, gas: 500000}).then((data) => {
         let newTickets = this.state.tickets;
         newTickets[ticketID].isSold = true;
 
         this.setState({tickets: newTickets});
+        document.write("<img src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + secret + "'>");
       })
     })
   }
