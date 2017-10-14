@@ -5,19 +5,9 @@ class NewEvent extends Component {
   constructor(props) {
     super(props)
 
-    let numTickets = 10
-    let identifiers = [];
-    let prices = [];
-
-    for (let i = 0; i < numTickets; i++) {
-      identifiers.push(i+1);
-      prices.push(100);
-    }
-
     this.state = {
-      numTickets: numTickets,
-      identifiers: identifiers,
-      prices: prices
+      numTickets: 10,
+      ticketPrice: 100
     }
 
     this.submit = this.submit.bind(this)
@@ -26,11 +16,19 @@ class NewEvent extends Component {
   submit() {
     let history = this.props.history
 
+    let identifiers = []
+    let prices = []
+
+    for (let i = 0; i < this.state.numTickets; i++) {
+      identifiers.push(i+1);
+      prices.push(this.state.ticketPrice);
+    }
+
     createEvent(
       this.props.web3,
       this.state.numTickets,
-      this.state.identifiers,
-      this.state.prices,
+      identifiers,
+      prices,
     ).then(contract => {
       history.push(`/${contract.address}`)
     })
@@ -43,9 +41,23 @@ class NewEvent extends Component {
     return (
       <div>
         <h1>New Event</h1>
-        <p>{this.state.numTickets}</p>
-        <p>{this.state.identifiers.toString()}</p>
-        <p>{this.state.prices.toString()}</p>
+
+        <br/>
+
+        <label>
+          Number of Tickets
+          <input value={this.state.numTickets} onChange={(ev) => this.setState({numTickets: ev.target.value})}/>
+        </label>
+
+        <br/>
+
+        <label>
+          Ticket Price
+          <input value={this.state.ticketPrice} onChange={(ev) => this.setState({ticketPrice: ev.target.value})}/>
+        </label>
+
+        <br/>
+
         <button onClick={this.submit}>Create</button>
       </div>
     )
