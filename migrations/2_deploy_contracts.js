@@ -7,7 +7,7 @@ module.exports = function(deployer) {
 
   for (let i = 0; i < numTickets; i++) {
     identifiers.push(i);
-    prices.push(100);
+    prices.push(2000);
   }
 
   deployer.deploy(Event, numTickets, identifiers, prices);

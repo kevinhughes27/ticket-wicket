@@ -59,12 +59,12 @@ class Event extends Component {
     return (
       <li key={ticket.identifier}>
         {ticket.identifier} {ticket.price}
-        (Owner: {ticket.isSold ? "Sold" : "Available"}) <button onClick={this.purchaseTicket.bind(this, ticket.identifier)}>Purchase ticket</button>
+        (Owner: {ticket.isSold ? "Sold" : "Available"}) <button onClick={this.purchaseTicket.bind(this, ticket.identifier, ticket.price)}>Purchase ticket</button>
       </li>
     )
   }
 
-  purchaseTicket(ticketID) {
+  purchaseTicket(ticketID, ticketPrice) {
     const contract = require('truffle-contract')
     const eventContract = contract(EventContract)
     const contractAddress = this.props.match.params.contractAddress
@@ -73,7 +73,7 @@ class Event extends Component {
     eventContract.at(contractAddress).then((instance) => {
       let secret = document.getElementById("secret").value;
 
-      instance.purchaseTicket(ticketID, document.getElementById("secret").value, {from: this.props.web3.eth.accounts[0], to: contractAddress, value: 45000, gas: 500000}).then((data) => {
+      instance.purchaseTicket(ticketID, document.getElementById("secret").value, {from: this.props.web3.eth.accounts[0], to: contractAddress, value: ticketPrice, gas: 500000}).then((data) => {
         let newTickets = this.state.tickets;
         newTickets[ticketID].isSold = true;
 
