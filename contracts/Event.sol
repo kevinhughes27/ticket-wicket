@@ -24,9 +24,9 @@ contract Event {
     }
   }
 
-  function getTickets() public returns (uint[10], uint[10]) {
-    uint[10] memory identifiers;
-    uint[10] memory prices;
+  function getTickets() public returns (uint[], uint[]) {
+    uint[] memory identifiers = new uint[](10);
+    uint[] memory prices = new uint[](10);
 
     for (uint i = 0; i < 10; i++) {
       identifiers[i] = tickets[i].identifier;
