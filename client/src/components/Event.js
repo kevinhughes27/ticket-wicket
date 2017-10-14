@@ -47,7 +47,11 @@ class Event extends Component {
       <div>
         <div>
           Enter a secret key to protect your purchase:
-          <input type="text" id="secret" />
+          <input type="text" id="purchaser_secret" />
+        </div>
+        <div>
+          Enter your name:
+          <input type="text" id="purchaser_name" />
         </div>
         <ul>
           {this.state.tickets.map(this.renderTicket)}
@@ -72,14 +76,16 @@ class Event extends Component {
     eventContract.setProvider(this.props.web3.currentProvider)
 
     eventContract.at(contractAddress).then((instance) => {
-      let secret = document.getElementById("secret").value;
+      let purchaserSecret = document.getElementById("purchaser_secret").value;
+      let purchaserName = document.getElementById("purchaser_name").value;
+      let ownerHash = sha3_256(purchaserSecret + "|" + purchaserName);
 
-      instance.purchaseTicket(ticketID, sha3_256(secret), {from: this.props.web3.eth.accounts[0], to: contractAddress, value: ticketPrice, gas: 500000}).then((data) => {
+      instance.purchaseTicket(ticketID, ownerHash, {from: this.props.web3.eth.accounts[0], to: contractAddress, value: ticketPrice, gas: 500000}).then((data) => {
         let newTickets = this.state.tickets;
         newTickets[ticketID].isSold = true;
 
         this.setState({tickets: newTickets});
-        document.write("<img src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + secret + "'>");
+        document.write("<img src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + purchaserSecret + "|" + purchaserName + "'>");
       })
     })
   }
