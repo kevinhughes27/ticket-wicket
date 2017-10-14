@@ -8,7 +8,7 @@ class App extends Component {
 
     this.state = {
       web3: null,
-      array: []
+      tickets: []
     }
   }
 
@@ -29,8 +29,16 @@ class App extends Component {
     eventContract.setProvider(this.state.web3.currentProvider)
 
     eventContract.deployed().then((instance) => {
-      instance.getArray.call().then((array) => {
-        return this.setState({array: array})
+      instance.getTickets.call().then((data) => {
+        let tickets = []
+        let numTickets = data[0].length
+        for (let i = 0; i < numTickets; i++) {
+          tickets.push({
+            identifier: data[0][i].toNumber(),
+            price: data[1][i].toNumber()
+          })
+        }
+        return this.setState({tickets: tickets})
       })
     })
   }
@@ -38,9 +46,19 @@ class App extends Component {
   render() {
     return (
       <div>
-        {this.state.array.toString()}
+        <ul>
+          {this.state.tickets.map(this.renderTicket)}
+        </ul>
       </div>
     );
+  }
+
+  renderTicket(ticket) {
+    return (
+      <li key={ticket.identifier}>
+        {ticket.identifier} {ticket.price}
+      </li>
+    )
   }
 }
 

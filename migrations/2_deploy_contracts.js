@@ -1,5 +1,14 @@
 var Event = artifacts.require("./Event.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(Event, [1,2,3,4,5,6,7,8,9,10]);
+  var numTickets = 20;
+  var identifiers = [];
+  var prices = [];
+
+  for (let i = 0; i < numTickets; i++) {
+    identifiers.push(i+1);
+    prices.push(100);
+  }
+
+  deployer.deploy(Event, numTickets, identifiers, prices);
 };
