@@ -4,6 +4,7 @@ import { CircularProgress } from 'react-md'
 import getWeb3 from '../utils/getWeb3'
 import NewEvent from './NewEvent'
 import Event from './Event'
+import Ticket from './Ticket'
 
 class App extends Component {
   constructor(props) {
@@ -31,9 +32,10 @@ class App extends Component {
             <Route exact path="/" render={(props) => (
               <NewEvent {...props} web3={this.state.web3}/>
             )}/>
-            <Route path="/:contractAddress" render={(props) => (
+            <Route exact path="/:contractAddress" render={(props) => (
               <Event {...props} web3={this.state.web3}/>
             )}/>
+            <Route path="/:contractAddress/ticket" component={Ticket} />
           </div>
         </BrowserRouter>
       )
