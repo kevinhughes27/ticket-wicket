@@ -5,6 +5,7 @@ contract Event {
 
   struct Ticket {
     address owner;
+    string ownerHash;
     uint identifier;
     uint price;
   }
@@ -24,7 +25,7 @@ contract Event {
     for (uint i = 0; i < numTickets; i++) {
       uint identifier = _identifiers[i];
       uint price = _prices[i];
-      tickets[i] = Ticket(address(0), identifier, price);
+      tickets[i] = Ticket(address(0), "", identifier, price);
     }
   }
 
@@ -44,7 +45,12 @@ contract Event {
     return (tickets[ticketID].identifier, tickets[ticketID].price);
   }
 
-  function purchaseTicket() payable {
+  function purchaseTicket(uint ticketID, string hash) payable {
+    require(msg.value >= tickets[ticketID].price);
+    require(sha3(tickets[ticketID].ownerHash) != sha3("")); // seriously?
+
+    tickets[ticketID].owner = msg.sender;
+    tickets[ticketID].ownerHash = hash;
   }
 
   // onlyTicketOwner
