@@ -42,4 +42,20 @@ contract Event {
 
   function purchaseTicket() payable {
   }
+
+  // onlyTicketOwner
+  function refundTicket() public {
+  }
+
+  // onlyTicketOwner
+  function transferTicket() payable {
+  }
+
+  // onlyOwner
+  function cancelEvent() public {
+  }
+
+  // onlyOwner
+  function disable() public {
+  }
 }
