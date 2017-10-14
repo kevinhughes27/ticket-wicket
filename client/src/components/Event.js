@@ -39,10 +39,12 @@ class Event extends Component {
     const contractAddress = this.props.match.params.contractAddress
     const purchaserSecret = this.state.password;
     const purchaserName = this.state.name;
-    const ownerHash = sha3_256(purchaserSecret + "|" + purchaserName);
+    const secret = purchaserSecret + "|" + purchaserName
+    const ownerHash = sha3_256(secret)
+    let history = this.props.history
 
     purchaseTicket(this.props.web3, contractAddress, ownerHash, ticketID, ticketPrice).then(data => {
-      document.write("<img src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + purchaserSecret + "|" + purchaserName + "'>");
+      history.push(`/${contractAddress}/ticket#${secret}`)
     })
   }
 
