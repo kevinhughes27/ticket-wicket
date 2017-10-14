@@ -13,12 +13,36 @@ class Arena extends Component {
     const numTickets = this.props.numTickets
     const seatsPerRow = Math.ceil(numTickets / numRows)
 
+    // only in Event component
+    const tickets = this.props.tickets
+    const selectSeat = this.props.selectSeat
+    const selectedSeat = this.props.selectedSeat
+
     let rows = []
     for(let i = 0; i < numRows; i++) {
       let seats = []
       for(let j = 0; j < seatsPerRow; j++) {
-        if (j*numRows+i < numTickets) {
-          seats.push(<td key={j}><SeatIcon/></td>)
+        const seatIndex = j*numRows+i
+        if (seatIndex < numTickets) {
+          if (tickets.length > 0) {
+            const identifier = tickets[seatIndex].identifier
+            const isSold = tickets[seatIndex].isSold
+            const isSelected = identifier == selectedSeat
+
+            if (isSold) {
+              seats.push(<td key={j}><SeatIcon style={{color: 'red'}}/></td>)
+            } else if (isSelected) {
+              seats.push(<td key={j}><SeatIcon style={{color: 'teal'}}/></td>)
+            } else {
+              seats.push(
+                <td key={j} onClick={selectSeat.bind(this, identifier)}>
+                  <SeatIcon/>
+                </td>
+              )
+            }
+          } else {
+            seats.push(<td key={j}><SeatIcon/></td>)
+          }
         } else {
           seats.push(<td key={j}></td>)
         }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Toolbar, Grid, Cell, TextField, Button } from 'react-md'
+import Arena from './Arena'
 import EventContract from '../contracts/Event.json'
 import { sha3_256 } from 'js-sha3'
 
@@ -8,10 +10,13 @@ class Event extends Component {
     super(props)
 
     this.state = {
+      seat: null,
+      name: '',
+      password: '',
       tickets: []
     }
 
-    this.renderTicket = this.renderTicket.bind(this)
+    this.selectSeat = this.selectSeat.bind(this)
     this.purchaseTicket = this.purchaseTicket.bind(this)
   }
 
@@ -42,42 +47,23 @@ class Event extends Component {
     })
   }
 
-  render() {
-    return (
-      <div>
-        <div>
-          Enter a secret key to protect your purchase:
-          <input type="text" id="purchaser_secret" />
-        </div>
-        <div>
-          Enter your name:
-          <input type="text" id="purchaser_name" />
-        </div>
-        <ul>
-          {this.state.tickets.map(this.renderTicket)}
-        </ul>
-      </div>
-    );
+  selectSeat(identifier) {
+    this.setState({seat: identifier})
   }
 
-  renderTicket(ticket) {
-    return (
-      <li key={ticket.identifier}>
-        {ticket.identifier} {ticket.price}
-        (Owner: {ticket.isSold ? "Sold" : "Available"}) <button onClick={this.purchaseTicket.bind(this, ticket.identifier, ticket.price)}>Purchase ticket</button>
-      </li>
-    )
-  }
+  purchaseTicket() {
+    const ticket = this.state.tickets.find((t) => t.identifier == this.state.seat)
+    const ticketID = this.state.tickets.findIndex((t) => t.identifier == this.state.seat)
+    const ticketPrice = ticket.price
 
-  purchaseTicket(ticketID, ticketPrice) {
     const contract = require('truffle-contract')
     const eventContract = contract(EventContract)
     const contractAddress = this.props.match.params.contractAddress
     eventContract.setProvider(this.props.web3.currentProvider)
 
     eventContract.at(contractAddress).then((instance) => {
-      let purchaserSecret = document.getElementById("purchaser_secret").value;
-      let purchaserName = document.getElementById("purchaser_name").value;
+      let purchaserSecret = this.state.password;
+      let purchaserName = this.state.name;
       let ownerHash = sha3_256(purchaserSecret + "|" + purchaserName);
 
       instance.purchaseTicket(ticketID, ownerHash, {from: this.props.web3.eth.accounts[0], to: contractAddress, value: ticketPrice, gas: 500000}).then((data) => {
@@ -88,6 +74,46 @@ class Event extends Component {
         document.write("<img src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + purchaserSecret + "|" + purchaserName + "'>");
       })
     })
+  }
+
+  render() {
+    return (
+      <div>
+        <Toolbar colored title="Eth Tickets / Event"/>
+        <Grid>
+          <Cell size={4} offset={1}>
+            {this.state.seat ? `seat: ${this.state.seat}` : "Select a seat by clicking on it"}
+            <TextField
+              id="name"
+              label="Enter your name"
+              type="text"
+              value={this.state.name}
+              onChange={(value) => this.setState({name: value})}
+            />
+
+            <TextField
+              id="password"
+              label="Enter a password to protect your purchase"
+              type="password"
+              passwordIcon={null}
+              value={this.state.password}
+              onChange={(value) => this.setState({password: value})}
+            />
+            <br/>
+            <Button raised secondary onClick={this.purchaseTicket}>Purchase</Button>
+          </Cell>
+          <Cell size={5} offset={1}>
+            <Arena
+              tickets={this.state.tickets}
+              numTickets={this.state.tickets.length}
+              numRows={2}
+              selectedSeat={this.state.seat}
+              selectSeat={this.selectSeat}
+            />
+          </Cell>
+        </Grid>
+      </div>
+    );
   }
 }
 
