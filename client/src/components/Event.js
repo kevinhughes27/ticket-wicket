@@ -62,10 +62,11 @@ class Event extends Component {
   purchaseTicket(ticketID) {
     const contract = require('truffle-contract')
     const eventContract = contract(EventContract)
+    const contractAddress = this.props.match.params.contractAddress
     eventContract.setProvider(this.props.web3.currentProvider)
 
-    eventContract.deployed().then((instance) => {
-      instance.purchaseTicket(1, "Very secret", {from: this.props.web3.eth.accounts[0], gas: 42000}).then((data) => {
+    eventContract.at(contractAddress).then((instance) => {
+      instance.purchaseTicket(1, "Very secret", {from: this.props.web3.eth.accounts[0], to: contractAddress, value: 45000, gas: 500000}).then((data) => {
         alert("You got it!")
       })
     })
