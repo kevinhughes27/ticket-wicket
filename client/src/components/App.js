@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
+import { CircularProgress } from 'react-md'
 import getWeb3 from '../utils/getWeb3'
 import NewEvent from './NewEvent'
 import Event from './Event'
@@ -38,9 +39,7 @@ class App extends Component {
       )
     } else {
       return (
-        <div>
-          No Web3
-        </div>
+        <CircularProgress id="loader"/>
       )
     }
   }
