@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import EventContract from '../contracts/Event.json'
+import React, { Component } from 'react'
 import getWeb3 from '../utils/getWeb3'
+import createEvent from '../actions/createEvent'
 
 class NewEvent extends Component {
   constructor(props) {
@@ -37,15 +37,12 @@ class NewEvent extends Component {
 
   submit() {
     let history = this.props.history
-    const contract = require('truffle-contract')
-    const eventContract = contract(EventContract)
-    eventContract.setProvider(this.state.web3.currentProvider)
 
-    eventContract.new(
+    createEvent(
+      this.state.web3,
       this.state.numTickets,
       this.state.identifiers,
       this.state.prices,
-      { from: this.state.web3.eth.accounts[0], gas: 4712388 }
     ).then(contract => {
       history.push(`/${contract.address}`)
     })
