@@ -13,7 +13,10 @@ contract Event {
 
   function Event(uint[10] _identifiers, uint[10] _prices) {
     owner = msg.sender;
+    createTickets(_identifiers, _prices);
+  }
 
+  function createTickets(uint[10] _identifiers, uint[10] _prices) {
     for (uint i = 0; i < 10; i++) {
       uint identifier = _identifiers[i];
       uint price = _prices[i];
