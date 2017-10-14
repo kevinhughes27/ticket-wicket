@@ -24,24 +24,24 @@ class Arena extends Component {
       for(let j = 0; j < seatsPerRow; j++) {
         const seatIndex = j*numRows+i
         if (seatIndex < numTickets) {
-          if (tickets.length > 0) {
+          if (tickets) {
             const identifier = tickets[seatIndex].identifier
             const isSold = tickets[seatIndex].isSold
             const isSelected = identifier === selectedSeat
 
             if (isSold) {
-              seats.push(<td key={j}><SeatIcon style={{color: 'red'}}/></td>)
+              seats.push(<td key={j}><SeatIcon style={{color: 'red', zoom: 2}}/></td>)
             } else if (isSelected) {
-              seats.push(<td key={j}><SeatIcon style={{color: 'teal'}}/></td>)
+              seats.push(<td key={j}><SeatIcon style={{color: 'teal', zoom: 2}}/></td>)
             } else {
               seats.push(
                 <td key={j} onClick={selectSeat.bind(this, identifier)}>
-                  <SeatIcon/>
+                  <SeatIcon style={{zoom: 2}}/>
                 </td>
               )
             }
           } else {
-            seats.push(<td key={j}><SeatIcon/></td>)
+            seats.push(<td key={j}><SeatIcon style={{zoom: 2}}/></td>)
           }
         } else {
           seats.push(<td key={j}></td>)
