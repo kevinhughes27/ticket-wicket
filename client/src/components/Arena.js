@@ -24,7 +24,7 @@ class Arena extends Component {
       for(let j = 0; j < seatsPerRow; j++) {
         const seatIndex = j*numRows+i
         if (seatIndex < numTickets) {
-          if (tickets.length > 0) {
+          if (tickets) {
             const identifier = tickets[seatIndex].identifier
             const isSold = tickets[seatIndex].isSold
             const isSelected = identifier === selectedSeat
