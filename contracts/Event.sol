@@ -47,6 +47,10 @@ contract Event {
     return (tickets[ticketID].identifier, tickets[ticketID].price);
   }
 
+  function getTicketHash(uint ticketID) public returns (string) {
+    return tickets[ticketID].ownerHash;
+  }
+
   function purchaseTicket(uint ticketID, string hash) payable {
     // TODO: ticketID is not the same as ticket.identifier but it is being treated as such
     require(msg.value >= tickets[ticketID].price);
