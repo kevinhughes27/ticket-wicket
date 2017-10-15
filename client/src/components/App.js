@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { CircularProgress, Toolbar } from 'react-md'
 import getWeb3 from '../utils/getWeb3'
+
 import NewEvent from './NewEvent'
 import Event from './Event'
 import Ticket from './Ticket'
@@ -30,16 +31,25 @@ class App extends Component {
       return (
         <BrowserRouter>
           <div>
-            <Toolbar colored title="" children={[<img src="/logo.png" width="205" height="51" style={{marginTop: 7, marginLeft: 15}} />]}/>
+            <Toolbar colored
+              title=""
+              children={[
+                <img src="/logo.png" alt="ticket-wicket" width="205" height="51" style={{marginTop: 7, marginLeft: 15}} />
+              ]}
+            />
+
             <Route exact path="/" render={(props) => (
               <NewEvent {...props} web3={this.state.web3}/>
             )}/>
+
             <Route exact path="/:contractAddress" render={(props) => (
               <Event {...props} web3={this.state.web3}/>
             )}/>
+
             <Route path="/:contractAddress/verify" render={(props) => (
               <Verifier {...props} web3={this.state.web3}/>
             )}/>
+
             <Route path="/:contractAddress/ticket" component={Ticket} />
           </div>
         </BrowserRouter>
@@ -52,4 +62,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App

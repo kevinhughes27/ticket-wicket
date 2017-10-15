@@ -131,4 +131,4 @@ class Verifier extends Component {
   }
 }
 
-export default Verifier;
+export default Verifier
