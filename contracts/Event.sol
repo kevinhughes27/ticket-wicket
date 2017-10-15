@@ -52,7 +52,6 @@ contract Event {
   }
 
   function purchaseTicket(uint ticketID, string hash) payable {
-    // TODO: ticketID is not the same as ticket.identifier but it is being treated as such
     require(msg.value >= tickets[ticketID].price);
     require(sha3(tickets[ticketID].ownerHash) == sha3("")); // seriously?
 

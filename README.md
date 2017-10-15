@@ -3,7 +3,7 @@ ticket-wicket
 
 A event creation and ticket sales app built on the Ethereum blockchain. Built at [ETHWaterloo](https://ethwaterloo.com/) hackathon.
 
-You can visit the app at [ticketwicket.xyz](https://ticketwicket.xyz).
+You can visit the app at [ticketwicket.xyz](https://ticketwicket.xyz). You'll want to be running `testrpc` locally as well.
 
 ## Development
 
