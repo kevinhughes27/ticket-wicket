@@ -1,8 +1,21 @@
 import React, { Component } from 'react'
 import QRCode from 'qrcode.react'
-import { Grid, Cell, Card, CardTitle, CardText } from 'react-md'
+import { Grid, Cell, Card, CardTitle, CardText, Button } from 'react-md'
 
 class Ticket extends Component {
+  constructor(props) {
+    super(props)
+
+    this.verifyLink = this.verifyLink.bind(this)
+  }
+
+  verifyLink() {
+    let history = this.props.history
+    const contractAddress = this.props.match.params.contractAddress
+
+    history.push(`/${contractAddress}/verify`)
+  }
+
   render () {
     // substring to remove the '#' off the front
     const secret = this.props.location.hash.substring(1)
@@ -18,6 +31,7 @@ class Ticket extends Component {
                   <QRCode value={secret} />
                 </div>
               </CardText>
+              <Button raised primary onClick={this.verifyLink}>Verify</Button>
             </Card>
           </Cell>
         </Grid>
