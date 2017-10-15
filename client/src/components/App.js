@@ -30,7 +30,7 @@ class App extends Component {
       return (
         <BrowserRouter>
           <div>
-            <Toolbar colored title="" children={[<img src="logo.png" width="205" height="51" style={{marginTop: 7, marginLeft: 15}} />]}/>
+            <Toolbar colored title="" children={[<img src="/logo.png" width="205" height="51" style={{marginTop: 7, marginLeft: 15}} />]}/>
             <Route exact path="/" render={(props) => (
               <NewEvent {...props} web3={this.state.web3}/>
             )}/>
