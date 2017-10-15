@@ -11,6 +11,7 @@ class Event extends Component {
     super(props)
 
     this.state = {
+      loading: false,
       seat: null,
       name: '',
       password: '',
@@ -43,6 +44,8 @@ class Event extends Component {
     const ownerHash = sha3_256(secret)
     let history = this.props.history
 
+    this.setState({loading: true})
+
     purchaseTicket(this.props.web3, contractAddress, ownerHash, ticketID, ticketPrice).then(data => {
       history.push(`/${contractAddress}/ticket#${secret}`)
     })
@@ -71,7 +74,7 @@ class Event extends Component {
               onChange={(value) => this.setState({password: value})}
             />
             <br/>
-            <Button raised secondary onClick={this.purchaseTicket}>Purchase</Button>
+            <Button raised secondary onClick={this.purchaseTicket} disabled={this.state.loading}>{this.state.loading ? "Processing..." : "Purchase"}</Button>
           </Cell>
           <Cell size={5} offset={1}>
             <span style={{fontSize:'1.5em', paddingBottom:'5px'}}>Select your seat:</span>

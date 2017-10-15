@@ -14,6 +14,7 @@ class NewEvent extends Component {
     super(props)
 
     this.state = {
+      loading: false,
       numTickets: 10,
       numRows: 2,
       ticketPrice: 10
@@ -33,6 +34,7 @@ class NewEvent extends Component {
       prices.push(this.state.ticketPrice)
     }
 
+    this.setState({loading: true})
     createEvent(
       this.props.web3,
       this.state.numTickets,
@@ -42,6 +44,7 @@ class NewEvent extends Component {
       history.push(`/${contract.address}`)
     })
     .catch((err) => {
+      this.setState({loading: false})
       console.log(err)
     })
   }
@@ -79,7 +82,7 @@ class NewEvent extends Component {
               onChange={(value) => this.setState({ticketPrice: value})}
             />
             <br/>
-            <Button raised secondary onClick={this.submit}>Create</Button>
+            <Button raised secondary onClick={this.submit} disabled={this.state.loading}>{this.state.loading ? "Processing..." : "Create"}</Button>
           </Cell>
           <Cell size={5} offset={1}>
             <Arena numTickets={this.state.numTickets} numRows={this.state.numRows}/>
