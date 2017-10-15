@@ -16,7 +16,7 @@ class NewEvent extends Component {
     this.state = {
       numTickets: 10,
       numRows: 2,
-      ticketPrice: 100
+      ticketPrice: 10
     }
 
     this.submit = this.submit.bind(this)
