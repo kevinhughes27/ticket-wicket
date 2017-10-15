@@ -10,7 +10,7 @@ export default function(web3, contractAddress, ownerHash, ticketID, ticketPrice)
         eventContract.at(contractAddress),
         getAccounts(web3)
       ]).then(([instance, accts]) => {
-        instance.purchaseTicket(
+        return instance.purchaseTicket(
           ticketID,
           ownerHash,
           {
