@@ -53,7 +53,7 @@ class Event extends Component {
       <div>
         <Grid>
           <Cell size={4} offset={1}>
-            {this.state.seat ? `seat: ${this.state.seat}` : "Select a seat by clicking on it"}
+            <span style={{fontSize:'2em'}}>{this.state.seat ? `Seat: ${this.state.seat}` : "Select a seat by clicking on it"}</span>
             <TextField
               id="name"
               label="Enter your name"

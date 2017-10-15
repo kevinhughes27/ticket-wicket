@@ -7,18 +7,20 @@ class Ticket extends Component {
     const secret = this.props.location.hash
 
     return (
-      <Grid>
-        <Cell size={4} offset={4}>
-          <Card>
-            <CardTitle title="Your Ticket"/>
-            <CardText>
-              <div style={{textAlign: 'center'}}>
-                <QRCode value={secret} />
-              </div>
-            </CardText>
-          </Card>
-        </Cell>
-      </Grid>
+      <div style={{background:"#795548", height:"100vh"}}>
+        <Grid>
+          <Cell size={4} offset={4}>
+            <Card>
+              <CardTitle title="Here's your ticket"/>
+              <CardText>
+                <div style={{textAlign: 'center'}}>
+                  <QRCode value={secret} />
+                </div>
+              </CardText>
+            </Card>
+          </Cell>
+        </Grid>
+      </div>
     )
   }
 }
