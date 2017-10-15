@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
-import { Grid, Cell, TextField, Button } from 'react-md'
+import { Grid, Cell, TextField, Button, SVGIcon } from 'react-md'
 import Arena from './Arena'
 import createEvent from '../actions/createEvent'
+
+const EthereumIcon = props => (
+  <SVGIcon {...props}>
+    <path d="M7.963 11.98l-4.91-2.9 4.91 6.92 4.913-6.92-4.914 2.9zM8.037 0l-4.91 8.148 4.91 2.903 4.91-2.9-4.91-8.151z"></path>
+  </SVGIcon>
+)
 
 class NewEvent extends Component {
   constructor(props) {
@@ -64,6 +70,7 @@ class NewEvent extends Component {
             />
 
             <TextField
+              rightIcon={<EthereumIcon style={{zoom: 1.5}}/>}
               id="price"
               label="Ticket Price"
               type="number"
