@@ -33,7 +33,7 @@ class NewEvent extends Component {
       identifiers,
       prices,
     ).then(contract => {
-      history.push(`/event/${contract.address}`)
+      history.push(`/${contract.address}`)
     })
     .catch((err) => {
       console.log(err)

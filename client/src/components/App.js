@@ -33,11 +33,11 @@ class App extends Component {
             <Route exact path="/" render={(props) => (
               <NewEvent {...props} web3={this.state.web3}/>
             )}/>
-            <Route path="/verify/:contractAddress" render={(props) => (
-              <Verifier {...props} web3={this.state.web3}/>
-            )}/>
-            <Route path="/event/:contractAddress" render={(props) => (
+            <Route exact path="/:contractAddress" render={(props) => (
               <Event {...props} web3={this.state.web3}/>
+            )}/>
+            <Route path="/:contractAddress/verify" render={(props) => (
+              <Verifier {...props} web3={this.state.web3}/>
             )}/>
             <Route path="/:contractAddress/ticket" component={Ticket} />
           </div>

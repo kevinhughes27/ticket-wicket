@@ -34,7 +34,7 @@ class Verifier extends Component {
 
   handleScan(scan) {
     if (scan != null) {
-      let parts = scan.split("|") 
+      let parts = scan.split("|")
       if (parts.length !== 3) {
         this.setState({error: "Invalid QR Code"})
       } else {
@@ -58,6 +58,7 @@ class Verifier extends Component {
   }
 
   render() {
+    // TODO: Display Error?
     if (this.state.contract == null) {
       return <CircularProgress id="loader" />
     } else if (this.state.scan == null) {
