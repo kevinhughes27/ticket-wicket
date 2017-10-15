@@ -19,7 +19,7 @@ export default function(web3, contractAddress) {
           })
         }
 
-        resolve(tickets);
+        resolve(tickets)
       })
     })
   })

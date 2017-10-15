@@ -26,4 +26,4 @@ class Ticket extends Component {
   }
 }
 
-export default Ticket;
+export default Ticket

@@ -23,8 +23,8 @@ class NewEvent extends Component {
     let prices = []
 
     for (let i = 0; i < this.state.numTickets; i++) {
-      identifiers.push(i+1);
-      prices.push(this.state.ticketPrice);
+      identifiers.push(i+1)
+      prices.push(this.state.ticketPrice)
     }
 
     createEvent(
