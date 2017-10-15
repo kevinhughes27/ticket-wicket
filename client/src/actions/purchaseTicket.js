@@ -1,24 +1,23 @@
 import EventContract from '../contracts/Event.json'
 import contract from 'truffle-contract'
+import getAccounts from '../utils/getAccounts.js'
 
 export default function(web3, contractAddress, ownerHash, ticketID, ticketPrice) {
   const eventContract = contract(EventContract)
   eventContract.setProvider(web3.currentProvider)
 
-  return new Promise(function(resolve, reject) {
-    eventContract.at(contractAddress).then(instance => {
-      instance.purchaseTicket(
-        ticketID,
-        ownerHash,
-        {
-          from: web3.eth.accounts[0],
-          to: contractAddress,
-          value: ticketPrice,
-          gas: 500000
-        }
-      ).then(data => {
-        resolve(data)
+  return Promise.all([
+        eventContract.at(contractAddress),
+        getAccounts(web3)
+      ]).then(([instance, accts]) => {
+        instance.purchaseTicket(
+          ticketID,
+          ownerHash,
+          {
+            from: accts[0],
+            to: contractAddress,
+            value: ticketPrice,
+            gas: 500000
+          })
       })
-    })
-  })
 }
