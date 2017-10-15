@@ -59,20 +59,4 @@ contract Event {
     tickets[ticketID].owner = msg.sender;
     tickets[ticketID].ownerHash = hash;
   }
-
-  // onlyTicketOwner
-  function refundTicket() public {
-  }
-
-  // onlyTicketOwner
-  function transferTicket() payable {
-  }
-
-  // onlyOwner
-  function cancelEvent() public {
-  }
-
-  // onlyOwner
-  function disable() public {
-  }
 }
