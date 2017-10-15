@@ -3,6 +3,8 @@ ticket-wicket
 
 A event creation and ticket sales app built on the Ethereum blockchain. Built at [ETHWaterloo](https://ethwaterloo.com/) hackathon.
 
+You can visit the app at [ticketwicket.xyz](https://ticketwicket.xyz).
+
 ## Development
 
 1. Install global dependencies:
@@ -24,6 +26,11 @@ A event creation and ticket sales app built on the Ethereum blockchain. Built at
 ## Notes
 
 The client app creates the event contract so we don't actually need to use `truffle migrate` but you can if you want
+
+## Deployment
+
+To get the latest changes to be reflected on ticketwicket.xyz, you need to run `yarn run build` in the `client` directory,
+and place the resulting files from `client/build` into the top-level directory on the `gh-pages` branch.
 
 ## Team
 
