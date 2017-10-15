@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Toolbar, Grid, Cell, TextField, Button } from 'react-md'
+import { Grid, Cell, TextField, Button } from 'react-md'
 import Arena from './Arena'
 import createEvent from '../actions/createEvent'
 
@@ -43,7 +43,6 @@ class NewEvent extends Component {
   render () {
     return (
       <div>
-        <Toolbar colored title="Eth Tickets / New Event"/>
         <Grid>
           <Cell size={4} offset={1}>
             <TextField

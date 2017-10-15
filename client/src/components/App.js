@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
-import { CircularProgress } from 'react-md'
+import { CircularProgress, Toolbar } from 'react-md'
 import getWeb3 from '../utils/getWeb3'
 import NewEvent from './NewEvent'
 import Event from './Event'
@@ -29,6 +29,7 @@ class App extends Component {
       return (
         <BrowserRouter>
           <div>
+            <Toolbar colored title="" children={[<img src="logo.png" width="205" height="51" style={{marginTop: 7, marginLeft: 15}} />]}/>
             <Route exact path="/" render={(props) => (
               <NewEvent {...props} web3={this.state.web3}/>
             )}/>
