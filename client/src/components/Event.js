@@ -39,7 +39,7 @@ class Event extends Component {
     const contractAddress = this.props.match.params.contractAddress
     const purchaserSecret = this.state.password;
     const purchaserName = this.state.name;
-    const secret = purchaserSecret + "|" + purchaserName
+    const secret = ticketID + "|" + purchaserSecret + "|" + purchaserName
     const ownerHash = sha3_256(secret)
     let history = this.props.history
 

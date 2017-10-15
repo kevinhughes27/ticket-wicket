@@ -4,7 +4,8 @@ import { Grid, Cell, Card, CardTitle, CardText } from 'react-md'
 
 class Ticket extends Component {
   render () {
-    const secret = this.props.location.hash
+    // substring to remove the '#' off the front
+    const secret = this.props.location.hash.substring(1)
 
     return (
       <Grid>
