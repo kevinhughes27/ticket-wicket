@@ -53,7 +53,7 @@ class Event extends Component {
       <div>
         <Grid>
           <Cell size={4} offset={1}>
-            <span style={{fontSize:'2em'}}>{this.state.seat ? `Seat: ${this.state.seat}` : "Select a seat by clicking on it"}</span>
+            <span style={{fontSize:'1.5em', paddingBottom:'5px'}}>Enter your information:</span>
             <TextField
               id="name"
               label="Enter your name"
@@ -74,6 +74,7 @@ class Event extends Component {
             <Button raised secondary onClick={this.purchaseTicket}>Purchase</Button>
           </Cell>
           <Cell size={5} offset={1}>
+            <span style={{fontSize:'1.5em', paddingBottom:'5px'}}>Select your seat:</span>
             <Arena
               tickets={this.state.tickets}
               numTickets={this.state.tickets.length}
@@ -81,6 +82,7 @@ class Event extends Component {
               selectedSeat={this.state.seat}
               selectSeat={this.selectSeat}
             />
+            <span style={{fontSize:'2em', marginTop:"5px"}}>{this.state.seat ? `Seat: ${this.state.seat}` : ""}</span>
           </Cell>
         </Grid>
       </div>

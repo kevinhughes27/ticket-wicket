@@ -32,7 +32,7 @@ class Arena extends Component {
             if (isSold) {
               seats.push(<td key={j}><SeatIcon style={{color: 'red', zoom: 2}}/></td>)
             } else if (isSelected) {
-              seats.push(<td key={j}><SeatIcon style={{color: 'teal', zoom: 2}}/></td>)
+              seats.push(<td key={j}><SeatIcon style={{color: 'yellowgreen', zoom: 2}}/></td>)
             } else {
               seats.push(
                 <td key={j} onClick={selectSeat.bind(this, identifier)}>
@@ -52,7 +52,7 @@ class Arena extends Component {
 
     return (
       <Card>
-        <CardTitle title="Arena"/>
+        <CardTitle title="Air Canada Centre"/>
         <CardText>
           <table>
             <tbody>
