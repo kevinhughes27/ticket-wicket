@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Toolbar, Grid, Cell, TextField, Button } from 'react-md'
+import { Grid, Cell, TextField, Button } from 'react-md'
 import Arena from './Arena'
 import loadTickets from '../actions/loadTickets'
 import purchaseTicket from '../actions/purchaseTicket'
@@ -51,7 +51,6 @@ class Event extends Component {
   render() {
     return (
       <div>
-        <Toolbar colored title="Eth Tickets / Event"/>
         <Grid>
           <Cell size={4} offset={1}>
             {this.state.seat ? `seat: ${this.state.seat}` : "Select a seat by clicking on it"}
