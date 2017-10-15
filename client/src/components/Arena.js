@@ -53,8 +53,6 @@ function buildRowsFromTickets(props) {
             </td>
           )
         }
-      } else {
-        seats.push(<td key={j}></td>)
       }
     }
     rows.push(<tr key={i}>{seats}</tr>)
@@ -74,8 +72,6 @@ function buildRows(props) {
       const seatIndex = j*numRows+i
       if (seatIndex < numTickets) {
         seats.push(<td key={j}><SeatIcon style={{zoom: 2}}/></td>)
-      } else {
-        seats.push(<td key={j}></td>)
       }
     }
     rows.push(<tr key={i}>{seats}</tr>)
